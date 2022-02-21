@@ -5,7 +5,7 @@ import { configureStore, persistor } from './redux/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter,  Routes, Route } from 'react-router-dom';
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap';
 
 
 const App = () => {

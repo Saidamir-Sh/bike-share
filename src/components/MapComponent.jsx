@@ -1,35 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect } from 'react';
-import { fetchIPLocation } from '../redux/action/';
+import { fetchIPLocation, fetchUserData } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
  
 const MapComponent = () => {
     const dispatch = useDispatch()
-    const IP = useSelector((state) => state.ipLocation)
-    console.log(IP)
-    useEffect(() => {
-      dispatch(fetchIPLocation())
+    const [latitude, setLatitude] = useState(0)
+    const [longitude, setLongitude] = useState(0)
+    const [checkCords, setCheckCords] = useState(false)
+    const isLoading = useSelector((state) => state.isLoading)
+    const ipLocation = useSelector((state) => state.ipLocation)
+    const userData = useSelector((state) => state.userData)
+ 
+    useEffect( async () => {
+      if(navigator.geolocation) {
+          navigator.geolocation.watchPosition((position) => {
+              setLatitude(position.coords.latitude)
+              setLongitude(position.coords.longitude)
+              setCheckCords(true)
+          })
+      }
     }, [])
 
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={13}>
+      !checkCords ? <h1>Loading...</h1> :
+    <MapContainer center={[latitude, longitude]} zoom={11}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <Marker position={[57.505, -0.08]}>
+      <Marker position={[latitude, longitude]}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
     </MapContainer>
+  
   )
 }
 

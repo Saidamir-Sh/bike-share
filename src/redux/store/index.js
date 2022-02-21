@@ -9,7 +9,8 @@ export const initialState = {
     ipLocation: [],
     userData: [],
     bikeNetworks: [],
-    bikeStations: []
+    bikeStations: [],
+    isLoading: true
 }
 
 const persistConfig = {
@@ -18,10 +19,10 @@ const persistConfig = {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const persistReducers = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const configureStore = createStore(
-    persistReducers,
+    persistedReducer,
     initialState,
     composeEnhancers(applyMiddleware(thunk))
 )
