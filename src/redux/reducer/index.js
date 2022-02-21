@@ -1,10 +1,17 @@
 import { initialState } from "../store";
+import { FETCH_IP_LOCATION, FETCH_USER_DATA } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'HELLO':
+        case FETCH_IP_LOCATION:
             return {
-                state
+                ...state,
+                ipLocation: action.payload
+            }
+        case FETCH_USER_DATA:
+            return {
+                ...state,
+                userData: action.payload
             }
     }
 }

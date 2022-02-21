@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter,  Routes, Route } from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap'
 
+
 const App = () => {
   return (
     <Provider store={configureStore}>

@@ -1,8 +1,18 @@
 import React from 'react';
 import '../styles/MapComponent.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
+import { useEffect } from 'react';
+import { fetchIPLocation } from '../redux/action/';
+import { useDispatch, useSelector } from 'react-redux'
+ 
 const MapComponent = () => {
+    const dispatch = useDispatch()
+    const IP = useSelector((state) => state.ipLocation)
+    console.log(IP)
+    useEffect(() => {
+      dispatch(fetchIPLocation())
+    }, [])
+
   return (
     <MapContainer center={[51.505, -0.09]} zoom={13}>
       <TileLayer
