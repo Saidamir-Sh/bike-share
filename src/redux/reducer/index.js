@@ -1,5 +1,5 @@
 import { initialState } from "../store";
-import { FETCH_IP_LOCATION, FETCH_USER_DATA } from "../action";
+import { FETCH_IP_LOCATION, FETCH_USER_DATA, GET_USER_LOCATION } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -15,5 +15,11 @@ export const rootReducer = (state = initialState, action) => {
                 userData: action.payload,
                 isLoading: false,
             }
+        // case GET_USER_LOCATION: 
+        //     return {
+        //         ...state,
+        //         isLoading: false,
+        //         userLocation: action.payload,
+        //     }
     }
 }

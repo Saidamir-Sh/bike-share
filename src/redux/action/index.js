@@ -1,5 +1,6 @@
 export const FETCH_IP_LOCATION = 'FETCH_IP_LOCATION'
 export const FETCH_USER_DATA = 'FETCH_USER_DATA'
+// export const GET_USER_LOCATION = 'GET_USER_LOCATION'
 
 export const fetchIPLocation = () => {
     return async (dispatch) => {
@@ -35,11 +36,11 @@ export const fetchUserData = (IPadress) => {
     }
 } 
 // export const getUserData = () => {
-//     return async (dispatch) => {
+//     return (dispatch) => {
 //             if(navigator.geolocation) {
 //                 navigator.geolocation.watchPosition((position) => {
 //                    dispatch({
-//                        type: FETCH_USER_DATA,
+//                        type: GET_USER_LOCATION,
 //                        payload: position.coords
 //                    })
 //                })

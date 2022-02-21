@@ -10,7 +10,7 @@ export const initialState = {
     userData: [],
     bikeNetworks: [],
     bikeStations: [],
-    isLoading: true
+    isLoading: true,
 }
 
 const persistConfig = {
