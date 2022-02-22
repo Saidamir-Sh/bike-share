@@ -15,11 +15,11 @@ export const rootReducer = (state = initialState, action) => {
                 userData: action.payload,
                 isLoading: false,
             }
-        // case GET_USER_LOCATION: 
-        //     return {
-        //         ...state,
-        //         isLoading: false,
-        //         userLocation: action.payload,
-        //     }
+        case FETCH_NETWORKS: 
+            return {
+                ...state,
+                isLoading: false,
+                bikeNetworks: action.payload,
+            }
     }
 }
