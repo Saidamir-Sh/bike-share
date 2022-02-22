@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect } from 'react';
-import { fetchIPLocation, fetchUserData, getUserData } from '../redux/action/';
+import { fetchUserData, fetchNetworks } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
  
 const MapComponent = () => {
@@ -13,7 +13,14 @@ const MapComponent = () => {
     const [longitude, setLongitude] = useState(0)
     const [checkCords, setCheckCords] = useState(false)
 
- 
+    const countryCode = useSelector((state) => state.userData.country_code)
+    const bikeNetworks = useSelector((state) => state.bikeNetworks.networks)
+
+    const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
+
+    bikes.map((bike) => {
+      // console.log(bike.location.latitude)
+    })
     useEffect(() => {
       if(navigator.geolocation) {
           navigator.geolocation.watchPosition((position) => {
@@ -22,6 +29,11 @@ const MapComponent = () => {
               setCheckCords(true)
           })
       }
+    }, [])
+
+    useEffect(() => {
+      dispatch(fetchUserData())
+      dispatch(fetchNetworks())
     }, [])
 
   return (
@@ -33,9 +45,18 @@ const MapComponent = () => {
       />
       <Marker position={[latitude, longitude]}>
         <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
+          A pretty CSS3 popup.<br /> Easily customizable.
         </Popup>
       </Marker>
+      {
+        bikes.map((bike) => {
+          <Marker position={[bike.location.latitude, bike.location.longitude]}>
+            <Popup>
+              A pretty CSS3 popup.<br /> Easily customizable.
+            </Popup>
+          </Marker>
+        })
+      }
     </MapContainer>
   
   )
