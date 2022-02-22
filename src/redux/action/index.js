@@ -1,6 +1,6 @@
 export const FETCH_IP_LOCATION = 'FETCH_IP_LOCATION'
 export const FETCH_USER_DATA = 'FETCH_USER_DATA'
-// export const GET_USER_LOCATION = 'GET_USER_LOCATION'
+export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 
 export const fetchIPLocation = () => {
     return async (dispatch) => {
@@ -35,17 +35,20 @@ export const fetchUserData = (IPadress) => {
         }
     }
 } 
-// export const getUserData = () => {
-//     return (dispatch) => {
-//             if(navigator.geolocation) {
-//                 navigator.geolocation.watchPosition((position) => {
-//                    dispatch({
-//                        type: GET_USER_LOCATION,
-//                        payload: position.coords
-//                    })
-//                })
-//         } else {
-//             alert('Unable to get location')
-//         }
-//     }
-// }
+
+export const fetchNetworks = () => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch('http://api.citybik.es/v2/networks')
+            if(response.ok) {
+                let data = await response.json()
+                dispatch({
+                    type: FETCH_NETWORKS,
+                    payload: data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+} 
