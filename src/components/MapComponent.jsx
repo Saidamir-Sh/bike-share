@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
+import { bikeNetwork, person } from './Icons';
  
 const MapComponent = () => {
 
@@ -40,18 +41,15 @@ const MapComponent = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[latitude, longitude]}>
-        <Popup>
-          A pretty CSS3 popup.<br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <Marker icon={person} position={[latitude, longitude]}></Marker>
       {
         bikes.map((bike) => (
           <Marker
           key={bike.id}
+          icon={ bikeNetwork }
           position={[bike.location.latitude, bike.location.longitude]}>
             <Popup>
-              A pretty CSS3 popup.<br /> Easily customizable.
+              {bike.name}
             </Popup>
           </Marker>
   ))
