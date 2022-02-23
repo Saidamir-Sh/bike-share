@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/MapComponent.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,7 +36,7 @@ const MapComponent = () => {
 
   return (
       !checkCords ? <h1>Loading...</h1> :
-    <MapContainer center={[latitude, longitude]} zoom={11}>
+    <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -52,8 +52,9 @@ const MapComponent = () => {
               {bike.name}
             </Popup>
           </Marker>
-  ))
+    ))
       }
+      <ZoomControl position="topright" />
     </MapContainer>
   
   )
