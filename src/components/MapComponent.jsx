@@ -18,9 +18,6 @@ const MapComponent = () => {
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
 
-    bikes.map((bike) => {
-      // console.log(bike.location.latitude)
-    })
     useEffect(() => {
       if(navigator.geolocation) {
           navigator.geolocation.watchPosition((position) => {
@@ -49,13 +46,15 @@ const MapComponent = () => {
         </Popup>
       </Marker>
       {
-        bikes.map((bike) => {
-          <Marker position={[bike.location.latitude, bike.location.longitude]}>
+        bikes.map((bike) => (
+          <Marker
+          key={bike.id}
+          position={[bike.location.latitude, bike.location.longitude]}>
             <Popup>
               A pretty CSS3 popup.<br /> Easily customizable.
             </Popup>
           </Marker>
-        })
+  ))
       }
     </MapContainer>
   
