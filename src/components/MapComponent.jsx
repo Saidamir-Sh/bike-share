@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import { useEffect } from 'react';
-import { fetchUserData, fetchNetworks } from '../redux/action/';
+import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person } from './Icons';
  
@@ -16,6 +16,9 @@ const MapComponent = () => {
 
     const countryCode = useSelector((state) => state.userData.country_code)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks)
+    const isLoading = useSelector((state) => state.isLoading)
+    const stations = useSelector((state) => state.bikeStations.network.stations)
+    console.log(stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
 
@@ -42,17 +45,33 @@ const MapComponent = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker icon={person} position={[latitude, longitude]}></Marker>
+
       {
         bikes.map((bike) => (
           <Marker
           key={bike.id}
           icon={ bikeNetwork }
-          position={[bike.location.latitude, bike.location.longitude]}>
+          position={[bike.location.latitude, bike.location.longitude]}
+          eventHandlers={{click: () => dispatch(fetchBikeStations(bike.href))}}
+          >
             <Popup>
               {bike.name}
             </Popup>
           </Marker>
     ))
+      }
+      {
+        stations.map((station) => (
+          <Marker
+          key={station.id}
+          position={[station.latitude, station.longitude]}
+          // eventHandlers={{click: () => dispatch(fetchBikeStations(bike.href))}}
+          >
+            <Popup>
+              {station.extra.slots}
+            </Popup>
+          </Marker>
+        ))
       }
       <ZoomControl position="topright" />
     </MapContainer>

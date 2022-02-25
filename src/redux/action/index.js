@@ -1,5 +1,6 @@
 export const FETCH_USER_DATA = 'FETCH_USER_DATA'
 export const FETCH_NETWORKS = 'FETCH_NETWORKS'
+export const FETCH_STATIONS = 'FETCH_STATIONS'
 
 export const fetchUserData = () => {
     return async (dispatch) => {
@@ -34,3 +35,20 @@ export const fetchNetworks = () => {
         }
     }
 } 
+
+export const fetchBikeStations = (networkId) => {
+    return async (dispatch) => {
+        try {
+            let response = await fetch(`http://api.citybik.es${networkId}`)
+            if(response.ok) {
+                let data = await response.json()
+                dispatch({
+                    type: FETCH_STATIONS,
+                    payload: data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

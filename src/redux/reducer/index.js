@@ -1,5 +1,5 @@
 import { initialState } from "../store";
-import { FETCH_USER_DATA,  FETCH_NETWORKS } from "../action";
+import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -14,6 +14,12 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 bikeNetworks: action.payload,
+            }
+        case FETCH_STATIONS:
+            return {
+                ...state,
+                isLoading: false,
+                bikeStations: action.payload,
             }
         default: 
             return {
