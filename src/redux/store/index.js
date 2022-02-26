@@ -10,6 +10,7 @@ export const initialState = {
     bikeNetworks: [],
     bikeStations: [],
     isLoading: true,
+    getStations: false,
 }
 
 const persistConfig = {

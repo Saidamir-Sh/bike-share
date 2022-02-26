@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/MapComponent.css';
+import Loader from './Loader';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
-import { bikeNetwork, person } from './Icons';
+import { bikeNetwork, person, stationIcon } from './Icons';
  
 const MapComponent = () => {
 
@@ -17,8 +18,8 @@ const MapComponent = () => {
     const countryCode = useSelector((state) => state.userData.country_code)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks)
     const isLoading = useSelector((state) => state.isLoading)
+    const getStations = useSelector((state) => state.getStations)
     const stations = useSelector((state) => state.bikeStations.network.stations)
-    console.log(stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
 
@@ -32,13 +33,13 @@ const MapComponent = () => {
       }
     }, [])
 
-    useEffect(() => {
-      dispatch(fetchUserData())
-      dispatch(fetchNetworks())
+    useEffect(async () => {
+       await dispatch(fetchUserData())
+       await dispatch(fetchNetworks())
     }, [])
 
   return (
-      !checkCords ? <h1>Loading...</h1> :
+      !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -46,7 +47,7 @@ const MapComponent = () => {
       />
       <Marker icon={person} position={[latitude, longitude]}></Marker>
 
-      {
+      { 
         bikes.map((bike) => (
           <Marker
           key={bike.id}
@@ -60,19 +61,24 @@ const MapComponent = () => {
           </Marker>
     ))
       }
-      {
+      {!getStations ? console.log('waiting...') :
         stations.map((station) => (
           <Marker
           key={station.id}
+          icon={ stationIcon }
           position={[station.latitude, station.longitude]}
           // eventHandlers={{click: () => dispatch(fetchBikeStations(bike.href))}}
           >
             <Popup>
-              {station.extra.slots}
+              <div style={{lineHeight: '3px'}}>
+                <p className='font-weight-bold'>{station.name}</p>
+                <p>{station.extra.slots} Slots</p>
+                <p>{station.free_bikes} Bikes</p>
+              </div>
             </Popup>
           </Marker>
         ))
-      }
+      } 
       <ZoomControl position="topright" />
     </MapContainer>
   

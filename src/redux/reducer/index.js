@@ -20,10 +20,12 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 bikeStations: action.payload,
+                getStations: true,
             }
-        default: 
+        default: {
             return {
-                state
+                ...state
             }
+        }
     }
 }

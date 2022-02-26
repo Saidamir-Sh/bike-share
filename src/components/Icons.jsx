@@ -1,11 +1,13 @@
 import L from 'leaflet'
+import '../styles/Icon.css'
 import bikePointer from "../assets/bikePointer.png"
 import personPointer from "../assets/personPointer.png"
+import stationPointer from '../assets/stationPointer.png'
 
 const bikeNetwork = new L.Icon({
     iconUrl: bikePointer,
     iconSize: [50, 50],
-    popupAnchor:  [1, -10]
+    popupAnchor:  [1, -10],
 })
 
 const person = new L.Icon({
@@ -14,4 +16,9 @@ const person = new L.Icon({
     popupAnchor:  [-3, -76]
 })
 
-export { bikeNetwork, person }
+const stationIcon = new L.Icon({
+    iconUrl: stationPointer,
+    iconSize: [30, 30],
+    className: 'pulse circle',
+}) 
+export { bikeNetwork, person, stationIcon }
