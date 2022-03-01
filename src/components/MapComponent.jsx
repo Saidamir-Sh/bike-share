@@ -23,7 +23,6 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network.stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
-    console.log(latitude, ' ', longitude)
 
     useEffect(() => {
       if(navigator.geolocation) {
@@ -43,7 +42,7 @@ const MapComponent = () => {
   return (
       !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
-      <Dashboard />
+      <Dashboard latitude={latitude} longitude={longitude} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

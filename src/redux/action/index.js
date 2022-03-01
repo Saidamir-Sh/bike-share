@@ -57,9 +57,10 @@ export const fetchBikeStations = (networkId) => {
 export const fetchWeather = (lat, long) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=7340a641a93f6db8387533e0d1700d93`)
+            let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=7340a641a93f6db8387533e0d1700d93`)
             if(response.ok) {
                 let data =  await response.json()
+                console.log(data)
                 dispatch({
                     type: FETCH_WEATHER,
                     payload: data
