@@ -23,6 +23,7 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network.stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
+    console.log(latitude, ' ', longitude)
 
     useEffect(() => {
       if(navigator.geolocation) {

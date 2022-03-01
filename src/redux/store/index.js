@@ -11,6 +11,7 @@ export const initialState = {
     bikeStations: [],
     isLoading: true,
     getStations: false,
+    weather: [],
 }
 
 const persistConfig = {
