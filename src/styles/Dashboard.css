@@ -1,0 +1,10 @@
+.dashboard {
+    width: 30%;
+    height: 100vh;
+    z-index: 9999;
+    position: absolute;
+    border-radius: 0px 40px 40px 0px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 30px #bebebe,
+             -20px -20px 30px #ffffff;
+}

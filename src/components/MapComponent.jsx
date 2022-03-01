@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import Loader from './Loader';
+import Dashboard from './Dashboard';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
@@ -41,6 +42,7 @@ const MapComponent = () => {
   return (
       !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
+      <Dashboard />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
