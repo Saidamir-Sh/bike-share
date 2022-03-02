@@ -1,7 +1,6 @@
 export const FETCH_USER_DATA = 'FETCH_USER_DATA'
 export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 export const FETCH_STATIONS = 'FETCH_STATIONS'
-export const FETCH_WEATHER = 'FETCH_WEATHER'
 
 export const fetchUserData = () => {
     return async (dispatch) => {
@@ -43,26 +42,9 @@ export const fetchBikeStations = (networkId) => {
             let response = await fetch(`http://api.citybik.es${networkId}`)
             if(response.ok) {
                 let data = await response.json()
-                dispatch({
-                    type: FETCH_STATIONS,
-                    payload: data
-                })
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
-
-export const fetchWeather = (lat, long) => {
-    return async (dispatch) => {
-        try {
-            let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&appid=7340a641a93f6db8387533e0d1700d93`)
-            if(response.ok) {
-                let data =  await response.json()
                 console.log(data)
                 dispatch({
-                    type: FETCH_WEATHER,
+                    type: FETCH_STATIONS,
                     payload: data
                 })
             }

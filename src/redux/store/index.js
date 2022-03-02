@@ -7,11 +7,10 @@ import { rootReducer } from '../reducer';
 
 export const initialState = {
     userData: [],
-    bikeNetworks: [],
-    bikeStations: [],
+    bikeNetworks:{},
+    bikeStations: {},
     isLoading: true,
     getStations: false,
-    weather: [],
 }
 
 const persistConfig = {

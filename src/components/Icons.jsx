@@ -18,7 +18,7 @@ const person = new L.Icon({
 
 const stationIcon = new L.Icon({
     iconUrl: stationPointer,
-    iconSize: [30, 30],
+    iconSize: [17, 17],
     className: 'pulse circle',
 }) 
 export { bikeNetwork, person, stationIcon }

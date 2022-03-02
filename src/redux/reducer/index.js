@@ -22,11 +22,6 @@ export const rootReducer = (state = initialState, action) => {
                 bikeStations: action.payload,
                 getStations: true,
             }
-        case FETCH_WEATHER: 
-            return {
-                ...state,
-                weather: action.payload,
-            }
         default: {
             return {
                 ...state

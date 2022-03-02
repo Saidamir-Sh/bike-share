@@ -7,6 +7,8 @@ import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person, stationIcon } from './Icons';
+import RoutingMachine from './RoutingMachine';
+import RoutingComponent from './RoutingComponent';
  
 const MapComponent = () => {
 
@@ -14,15 +16,29 @@ const MapComponent = () => {
 
     const [latitude, setLatitude] = useState(0)
     const [longitude, setLongitude] = useState(0)
+    const [bikeLat, setBikeLat] = useState(null)
+    const [bikeLong, setBikeLong] = useState(null)
+    const [checkBikeAdress, setCheckBikeAdress] = useState(false)
     const [checkCords, setCheckCords] = useState(false)
 
     const countryCode = useSelector((state) => state.userData.country_code)
-    const bikeNetworks = useSelector((state) => state.bikeNetworks.networks)
+    const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
     const isLoading = useSelector((state) => state.isLoading)
     const getStations = useSelector((state) => state.getStations)
-    const stations = useSelector((state) => state.bikeStations.network.stations)
+    const stations = useSelector((state) => state.bikeStations.network?.stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
+
+    const setBikeAdress = (station) => {
+      setBikeLat(station.latitude)
+      setBikeLong(station.longitude)
+
+      setCheckBikeAdress(false)
+      setCheckBikeAdress(true)
+      // return (
+      //   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/>
+      // )
+    }
 
     useEffect(() => {
       if(navigator.geolocation) {
@@ -46,6 +62,7 @@ const MapComponent = () => {
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        // className='map-tiles'
       />
       <Marker icon={person} position={[latitude, longitude]}></Marker>
 
@@ -69,7 +86,7 @@ const MapComponent = () => {
           key={station.id}
           icon={ stationIcon }
           position={[station.latitude, station.longitude]}
-          // eventHandlers={{click: () => dispatch(fetchBikeStations(bike.href))}}
+          eventHandlers={{click: () => setBikeAdress(station)}}
           >
             <Popup>
               <div style={{lineHeight: '3px'}}>
@@ -82,6 +99,10 @@ const MapComponent = () => {
         ))
       } 
       <ZoomControl position="topright" />
+       {
+         checkBikeAdress ?   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : console.log('waiting...')
+       }
+       {/*<RoutingComponent userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong} />*/} 
     </MapContainer>
   
   )
