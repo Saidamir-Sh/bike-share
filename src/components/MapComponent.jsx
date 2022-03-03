@@ -8,7 +8,6 @@ import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person, stationIcon } from './Icons';
 import RoutingMachine from './RoutingMachine';
-import RoutingComponent from './RoutingComponent';
  
 const MapComponent = () => {
 
@@ -35,9 +34,6 @@ const MapComponent = () => {
 
       setCheckBikeAdress(false)
       setCheckBikeAdress(true)
-      // return (
-      //   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/>
-      // )
     }
 
     useEffect(() => {
@@ -102,8 +98,7 @@ const MapComponent = () => {
        {
          checkBikeAdress ?   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : console.log('waiting...')
        }
-       {/*<RoutingComponent userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong} />*/} 
-    </MapContainer>
+        </MapContainer>
   
   )
 }

@@ -1,18 +1,9 @@
 .dashboard {
-    width: 30%;
+    width: 25%;
     height: 100vh;
     z-index: 999;
     position: absolute;
-    border-radius: 0px 40px 40px 0px;
-    background: #e0e0e0;
+    background: #FFFDD0;
     box-shadow:  20px 20px 30px #bebebe,
              -20px -20px 30px #ffffff;
-}
-.dashboard-weather div:first-child p:first-child {
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-.dashboard-weather div:nth-child(2) p, .dashboard-weather div:first-child p:nth-child(2) {
-    text-transform: capitalize;
-    font-size: .9rem;
 }
