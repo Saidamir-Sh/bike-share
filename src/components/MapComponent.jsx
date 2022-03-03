@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import Loader from './Loader';
 import Dashboard from './Dashboard';
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
@@ -84,13 +84,13 @@ const MapComponent = () => {
           position={[station.latitude, station.longitude]}
           eventHandlers={{click: () => setBikeAdress(station)}}
           >
-            <Popup>
+            <Tooltip>
               <div style={{lineHeight: '3px'}}>
                 <p className='font-weight-bold'>{station.name}</p>
                 <p>{station.extra.slots} Slots</p>
                 <p>{station.free_bikes} Bikes</p>
               </div>
-            </Popup>
+            </Tooltip>
           </Marker>
         ))
       } 

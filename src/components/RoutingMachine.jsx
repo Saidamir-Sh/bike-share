@@ -2,6 +2,7 @@ import React from "react";
 import L, { control, Map, map, routing } from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
+import 'lrm-graphhopper'
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
@@ -19,14 +20,17 @@ const createRoutineMachineLayer = ({ userLat, userLong, bikeLat, bikeLong }) => 
     createMarker: function() {
       return null
     },
-    show: false,
+    router: new L.Routing.GraphHopper('deebe34a-a717-4450-aa2a-f6de3ec9b443', {
+      urlParameters: {
+          vehicle: 'foot'
+      }}),
+    show: true,
     addWaypoints: false,
     routeWhileDragging: true,
     draggableWaypoints: true,
     fitSelectedRoutes: true,
     showAlternatives: false
   })
-  
   return instance;
   
 };
