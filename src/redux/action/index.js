@@ -1,6 +1,7 @@
 export const FETCH_USER_DATA = 'FETCH_USER_DATA'
 export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 export const FETCH_STATIONS = 'FETCH_STATIONS'
+export const TOGGLE_MODE = 'TOGGLE_MODE'
 
 export const fetchUserData = () => {
     return async (dispatch) => {
@@ -51,5 +52,10 @@ export const fetchBikeStations = (networkId) => {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+export const toggleMode = () => {
+    return {
+        type: TOGGLE_MODE,
     }
 }

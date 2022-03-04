@@ -22,6 +22,10 @@ export const rootReducer = (state = initialState, action) => {
                 bikeStations: action.payload,
                 getStations: true,
             }
+        case TOGGLE_MODE: 
+            return {
+                ...state,
+            }
         default: {
             return {
                 ...state
