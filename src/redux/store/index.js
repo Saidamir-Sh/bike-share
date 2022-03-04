@@ -11,6 +11,7 @@ export const initialState = {
     bikeStations: {},
     isLoading: true,
     getStations: false,
+    isLightMode: true
 }
 
 const persistConfig = {

@@ -1,5 +1,5 @@
 import { initialState } from "../store";
-import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS, FETCH_WEATHER } from "../action";
+import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS, FETCH_WEATHER, TOGGLE_MODE } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -25,6 +25,7 @@ export const rootReducer = (state = initialState, action) => {
         case TOGGLE_MODE: 
             return {
                 ...state,
+                isLightMode: !state.isLightMode
             }
         default: {
             return {

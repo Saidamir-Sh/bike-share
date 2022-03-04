@@ -2,26 +2,32 @@ import React, { useState } from 'react'
 import '../styles/Dashboard.css'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
 
 function Dashboard({latitude, longitude}) {
 
+  const dispatch = useDispatch()
+
+  const isLightMode = useSelector((state) => state.isLightMode)
+  console.log(isLightMode)
+
   const [isActive, setIsActive] = useState(false)
-  const [isLightMode, setIsLightMode] = useState(true)
+  // const [isLightMode, setIsLightMode] = useState(true)
 
-  const toggleMode = () => {
-    setIsLightMode(!isLightMode)
-  }
-
+  // const toggleMode = () => {
+  //   setIsLightMode(!isLightMode)
+  // }
+  console.log()
   const handleSideBar = () => {
     setIsActive(!isActive)
   }
 
   return (
         <div className={isActive ? 'dashboard' : 'dashboard inactive'}>
-           <Switch  onChange={toggleMode}/>
+           <Switch  onChange={() => {dispatch(toggleMode())}}/>
 
           <div onClick={handleSideBar} className='dashboard-arrow d-flex align-items-center justify-content-center'>
             {isActive ? <ArrowRightIcon /> : <ArrowLeftIcon/>}
