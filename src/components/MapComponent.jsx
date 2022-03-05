@@ -23,7 +23,6 @@ const MapComponent = () => {
     const countryCode = useSelector((state) => state.userData.country_code)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
     const isLightMode = useSelector((state) => state.isLightMode)
-    console.log(isLightMode)
     const getStations = useSelector((state) => state.getStations)
     const stations = useSelector((state) => state.bikeStations.network?.stations)
 
@@ -51,6 +50,7 @@ const MapComponent = () => {
        await dispatch(fetchUserData())
        await dispatch(fetchNetworks())
     }, [])
+
   return (
       !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
@@ -58,7 +58,7 @@ const MapComponent = () => {
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        className={!isLightMode ? '' : 'map-tiles'}
+        className={!isLightMode ? 'default-map' : 'map-tiles'}
       />
       <Marker icon={person} position={[latitude, longitude]}></Marker>
 
@@ -96,7 +96,7 @@ const MapComponent = () => {
       } 
       <ZoomControl position="topright" />
        {
-         checkBikeAdress ?   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : console.log('waiting...')
+         checkBikeAdress ?   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
        }
         </MapContainer>
   

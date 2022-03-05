@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import L, { control, Map, map, routing } from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
@@ -7,8 +7,8 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 
-const createRoutineMachineLayer = ({ userLat, userLong, bikeLat, bikeLong }) => {
-   
+
+const CreateRoutineMachineLayer = ({ userLat, userLong, bikeLat, bikeLong }) => {
   const instance = L.Routing.control({
     waypoints: [
       L.latLng(userLat, userLong),
@@ -24,18 +24,19 @@ const createRoutineMachineLayer = ({ userLat, userLong, bikeLat, bikeLong }) => 
       urlParameters: {
           vehicle: 'foot'
       }}),
-    show: true,
+    show: true, //false 
     addWaypoints: false,
     routeWhileDragging: true,
     draggableWaypoints: true,
     fitSelectedRoutes: true,
-    showAlternatives: false
+    showAlternatives: false,
   })
+  // const map = useMap()
+  // let routeBlock = instance.onAdd(map)
+  // document.querySelector('.dashboard').appendChild(routeBlock)
   return instance;
-  
 };
 
-const RoutingMachine = createControlComponent(createRoutineMachineLayer);
-
+const RoutingMachine = createControlComponent(CreateRoutineMachineLayer);
 
 export default RoutingMachine;

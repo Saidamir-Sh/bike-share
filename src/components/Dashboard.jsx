@@ -20,7 +20,7 @@ function Dashboard({latitude, longitude}) {
   // const toggleMode = () => {
   //   setIsLightMode(!isLightMode)
   // }
-  console.log()
+  
   const handleSideBar = () => {
     setIsActive(!isActive)
   }
