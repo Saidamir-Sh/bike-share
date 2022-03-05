@@ -20,7 +20,7 @@ const MapComponent = () => {
     const [checkBikeAdress, setCheckBikeAdress] = useState(false)
     const [checkCords, setCheckCords] = useState(false)
 
-    const countryCode = useSelector((state) => state.userData.country_code)
+    const countryCode = useSelector((state) => state.countryCode)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
     const isLightMode = useSelector((state) => state.isLightMode)
     const getStations = useSelector((state) => state.getStations)

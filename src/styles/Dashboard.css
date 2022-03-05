@@ -4,7 +4,7 @@
     cursor: auto;
     z-index: 999;
     position: absolute;
-    background: #FFFDD0;
+    background: #FFFFFF;
     transform: translateX(-100%);
     transition: all .6s ease-in-out;
     box-shadow:  20px 20px 30px #bebebe,
@@ -18,7 +18,7 @@
     height: 50px;
     width: 30px;
     cursor: pointer;
-    background: #FFFDD0;
+    background: #FFFFFF;
     position: absolute;
     right: -1.5em;
     top: 50%;

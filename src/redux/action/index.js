@@ -11,7 +11,7 @@ export const fetchUserData = () => {
                 let data = await response.json()
                 dispatch({
                     type: FETCH_USER_DATA,
-                    payload: data.ip
+                    payload: data.ip.country_code
                 })
             }
         } catch (error) {
@@ -54,6 +54,9 @@ export const fetchBikeStations = (networkId) => {
         }
     }
 }
+
+
+
 export const toggleMode = () => {
     return {
         type: TOGGLE_MODE,

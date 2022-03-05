@@ -6,7 +6,7 @@ export const rootReducer = (state = initialState, action) => {
         case FETCH_USER_DATA:
             return {
                 ...state,
-                userData: action.payload,
+                countryCode: action.payload,
                 isLoading: false,
             }
         case FETCH_NETWORKS: 

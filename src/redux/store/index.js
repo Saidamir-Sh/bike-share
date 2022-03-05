@@ -6,7 +6,7 @@ import persistReducer from 'redux-persist/es/persistReducer';
 import { rootReducer } from '../reducer';
 
 export const initialState = {
-    userData: [],
+    countryCode: null,
     bikeNetworks:{},
     bikeStations: {},
     isLoading: true,
