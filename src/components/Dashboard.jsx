@@ -5,8 +5,6 @@ import { toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
  
 function Dashboard({latitude, longitude}) {
 
@@ -18,9 +16,8 @@ function Dashboard({latitude, longitude}) {
   
   const allCountries = []
   networks.map((network) => {
-    allCountries.push()
+    allCountries.push(network.location.city)
   })
-  console.log(allCountries)
 
   const [isActive, setIsActive] = useState(false)
   
@@ -31,13 +28,7 @@ function Dashboard({latitude, longitude}) {
   return (
         <div className={isActive ? 'dashboard' : 'dashboard inactive'}>
            <Switch  onChange={() => {dispatch(toggleMode())}}/>
-           <Autocomplete
-               disablePortal
-               id="combo-box-demo"
-               options={allCountries}
-               sx={{ width: '90%', mx: "auto", mt: 2 }}
-               renderInput={(params) => <TextField {...params} label="Search for cities" />}
-            />
+      
           <div onClick={handleSideBar} className='dashboard-arrow d-flex align-items-center justify-content-center'>
             {isActive ? <ArrowRightIcon /> : <ArrowLeftIcon/>}
           </div>
