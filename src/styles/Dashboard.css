@@ -25,3 +25,6 @@
     transform: translateY(-50%);
     border-radius: 20%;
 }
+.search-input {
+    width: 90%;
+}

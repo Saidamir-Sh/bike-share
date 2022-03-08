@@ -19,6 +19,7 @@ const MapComponent = () => {
     const [bikeLong, setBikeLong] = useState(null)
     const [checkBikeAdress, setCheckBikeAdress] = useState(false)
     const [checkCords, setCheckCords] = useState(false)
+    const [stationInfo, setStationInfo] = useState({})
 
     const countryCode = useSelector((state) => state.countryCode)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
@@ -27,14 +28,16 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network?.stations)
 
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
-
+  
     const setBikeAdress = (station) => {
       setBikeLat(station.latitude)
       setBikeLong(station.longitude)
+      setStationInfo(station)
 
       setCheckBikeAdress(false)
       setCheckBikeAdress(true)
     }
+
 
     useEffect(() => {
       if(navigator.geolocation) {
@@ -54,7 +57,7 @@ const MapComponent = () => {
   return (
       !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
-      <Dashboard latitude={latitude} longitude={longitude} />
+      <Dashboard  station={stationInfo} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -88,7 +91,7 @@ const MapComponent = () => {
               <div style={{lineHeight: '3px'}}>
                 <p className='font-weight-bold'>{station.name}</p>
                 <p>{station.extra.slots} Slots</p>
-                <p>{station.free_bikes} Bikes</p>
+                <p>{station.extra.slots - station.empty_slots} Bikes</p>
               </div>
             </Tooltip>
           </Marker>
@@ -96,7 +99,7 @@ const MapComponent = () => {
       } 
       <ZoomControl position="topright" />
        {
-         checkBikeAdress ?   <RoutingMachine userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
+         checkBikeAdress ?   <RoutingMachine checkBikeAdress={checkBikeAdress} userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
        }
         </MapContainer>
   

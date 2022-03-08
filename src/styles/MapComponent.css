@@ -15,7 +15,7 @@
 }
 .leaflet-routing-container {
     border: none !important;
-    background: #FFFDD0 !important;
+    background: #ffffff !important;
 }
 @media (prefers-color-scheme: dark) {
     .map-tiles {
