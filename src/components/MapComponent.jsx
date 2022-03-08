@@ -4,7 +4,7 @@ import Loader from './Loader';
 import Dashboard from './Dashboard';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip } from 'react-leaflet';
 import { useEffect } from 'react';
-import { fetchUserData, fetchNetworks, fetchBikeStations } from '../redux/action/';
+import { fetchUserData, fetchNetworks, fetchBikeStations, setUserLatLng } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person, stationIcon } from './Icons';
 import RoutingMachine from './RoutingMachine';
@@ -13,12 +13,12 @@ const MapComponent = () => {
 
     const dispatch = useDispatch()
 
-    const [latitude, setLatitude] = useState(0)
-    const [longitude, setLongitude] = useState(0)
+    // const [latitude, setLatitude] = useState(0)
+    // const [longitude, setLongitude] = useState(0)
     const [bikeLat, setBikeLat] = useState(null)
     const [bikeLong, setBikeLong] = useState(null)
     const [checkBikeAdress, setCheckBikeAdress] = useState(false)
-    const [checkCords, setCheckCords] = useState(false)
+    // const [checkCords, setCheckCords] = useState(false)
     const [stationInfo, setStationInfo] = useState({})
 
     const countryCode = useSelector((state) => state.countryCode)
@@ -26,7 +26,10 @@ const MapComponent = () => {
     const isLightMode = useSelector((state) => state.isLightMode)
     const getStations = useSelector((state) => state.getStations)
     const stations = useSelector((state) => state.bikeStations.network?.stations)
-
+    const latitude = useSelector((state) => state.position?.latitude)
+    const longitude = useSelector((state) => state.position?.longitude)
+    const checkCords = useSelector((state) => state.position?.checkCords)
+    
     const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
   
     const setBikeAdress = (station) => {
@@ -39,25 +42,26 @@ const MapComponent = () => {
     }
 
 
-    useEffect(() => {
-      if(navigator.geolocation) {
-          navigator.geolocation.watchPosition((position) => {
-              setLatitude(position.coords.latitude)
-              setLongitude(position.coords.longitude)
-              setCheckCords(true)
-          })
-      }
-    }, [])
+    // useEffect(() => {
+    //   if(navigator.geolocation) {
+    //       navigator.geolocation.watchPosition((position) => {
+    //           setLatitude(position.coords.latitude)
+    //           setLongitude(position.coords.longitude)
+    //           setCheckCords(true)
+    //       })
+    //   }
+    // }, [])
 
     useEffect(async () => {
        await dispatch(fetchUserData())
        await dispatch(fetchNetworks())
+       dispatch(setUserLatLng())
     }, [])
 
   return (
       !checkCords ? <Loader /> :
     <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
-      <Dashboard  station={stationInfo} />
+      <Dashboard latitude={latitude} longitude={longitude}  station={stationInfo} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

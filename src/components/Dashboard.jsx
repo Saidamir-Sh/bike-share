@@ -5,9 +5,9 @@ import { toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
-import { Form } from 'react-bootstrap'
+import { Form, Card } from 'react-bootstrap'
  
-const Dashboard = ({station}) => {
+const Dashboard = ({latitude, longitude, station}) => {
 
   const dispatch = useDispatch()
 
@@ -16,7 +16,6 @@ const Dashboard = ({station}) => {
 
   const isLightMode = useSelector((state) => state.isLightMode)
   const networks = useSelector((state) => state.bikeNetworks.networks)
-  console.log(networks)
 
 
   const [isActive, setIsActive] = useState(false)
@@ -25,11 +24,12 @@ const Dashboard = ({station}) => {
     setIsActive(!isActive)
   }
 
+
   return (
         <div className={isActive ? 'dashboard ' : 'dashboard inactive dashboard-dark'}>
            <Switch  onChange={() => {dispatch(toggleMode())}}/>
            <Form>
-            <Form.Group className='d-flex align-items-center position-relative' controlId="formBasicText">
+            <Form.Group className='d-flex align-items-center position-relative flex-column' controlId="formBasicText">
               <Form.Control 
               onChange={(e) => setSearchQuery(e.target.value)}
               value={searchQuery}
@@ -37,17 +37,19 @@ const Dashboard = ({station}) => {
               type="text" 
               placeholder="Search for other cities..." />
               <i class="bi bi-search"></i>
-            </Form.Group>
+              <Card className='search-result-container mx-auto'>
             {
               networks.filter((network) => {
                 if(!searchQuery) return false
-                if(network.location.city.toLowerCase().includes(searchQuery)) return true
+                if(network.location.city.toLowerCase().includes(searchQuery.toLowerCase())) return true
               }).map((network) => (
-                <div>
-                  <p>{network.location.city}</p>
-                </div>
+                <Card key={network.id} className='search-result px-0 py-0 my-0' >
+                  <Card.Body  className='px-2 py-2'>{network.location.city}, {network.location.country}</Card.Body>
+                </Card>
               ))
             }
+            </Card>
+            </Form.Group>
           </Form>
       
           <div onClick={handleSideBar} className='dashboard-arrow-dark dashboard-arrow d-flex align-items-center justify-content-center'>

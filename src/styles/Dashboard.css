@@ -35,3 +35,14 @@
     color: grey;
     font-size: 1.2rem;
 }
+.search-result {
+    cursor: pointer;
+    border: none;
+    border-radius: 0%;
+}
+.search-result:hover {
+    background: #bebebe42;
+}
+.search-result-container {
+    width: 90%;
+}

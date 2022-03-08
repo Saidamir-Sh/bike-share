@@ -2,6 +2,7 @@ export const FETCH_USER_DATA = 'FETCH_USER_DATA'
 export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 export const FETCH_STATIONS = 'FETCH_STATIONS'
 export const TOGGLE_MODE = 'TOGGLE_MODE'
+export const GET_USER_DATA = 'GET_USER_DATA'
 
 export const fetchUserData = () => {
     return async (dispatch) => {
@@ -62,3 +63,25 @@ export const toggleMode = () => {
         type: TOGGLE_MODE,
     }
 }
+
+export const setUserLatLng = () => {
+    return (dispatch) => {
+        if(navigator.geolocation) {
+            navigator.geolocation.watchPosition((position) => {
+                // setLatitude(position.coords.latitude)
+                // setLongitude(position.coords.longitude)
+                // setCheckCords(true)
+                let data = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    checkCords: true,
+                }
+                dispatch({
+                    type: GET_USER_DATA,
+                    payload: data,
+                })
+            })
+        }
+    }
+} 
+
