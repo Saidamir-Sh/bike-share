@@ -28,8 +28,10 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network?.stations)
     const latitude = useSelector((state) => state.position?.latitude)
     const longitude = useSelector((state) => state.position?.longitude)
-    const userLat = useSelector((state) => state.userPosition)
-    console.log(userLat)
+    const userLat = useSelector((state) => state.userPosition.latitude)
+    const userLng = useSelector((state) => state.userPosition.longitude)
+    const userPosition = [userLat, userLng]
+    console.log(userPosition)
     const checkCords = useSelector((state) => state.position?.checkCords)
     const coords = [latitude, longitude]
     
