@@ -30,7 +30,7 @@ export const rootReducer = (state = initialState, action) => {
         case GET_USER_DATA: 
             return {
                 ...state,
-                position: action.payload
+                userPosition: action.payload
             }
         case CHANGE_POSITION: 
             return {

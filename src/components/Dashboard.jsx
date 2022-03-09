@@ -8,10 +8,9 @@ import { Switch } from '@mui/material';
 import { Form, Card } from 'react-bootstrap'
 import { useMap } from 'react-leaflet';
  
-const Dashboard = ({position, station}) => {
+const Dashboard = () => {
 
   const dispatch = useDispatch()
-  const map = useMap()
 
 
   const [searchQuery, setSearchQuery] = useState('')

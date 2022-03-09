@@ -12,6 +12,7 @@ import RoutingMachine from './RoutingMachine';
 const MapComponent = () => {
 
     const dispatch = useDispatch()
+    // const map = useMap()
     // const [latitude, setLatitude] = useState(0)
     // const [longitude, setLongitude] = useState(0)
     const [bikeLat, setBikeLat] = useState(null)
@@ -27,8 +28,10 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network?.stations)
     const latitude = useSelector((state) => state.position?.latitude)
     const longitude = useSelector((state) => state.position?.longitude)
+    const userLat = useSelector((state) => state.userPosition)
+    console.log(userLat)
     const checkCords = useSelector((state) => state.position?.checkCords)
-    const position = [latitude, longitude]
+    const coords = [latitude, longitude]
     
     const bikes = bikeNetworks.filter((network) => network.location?.country == countryCode)
   
@@ -39,6 +42,13 @@ const MapComponent = () => {
 
       setCheckBikeAdress(false)
       setCheckBikeAdress(true)
+    }
+
+    const SetViewOnClick = ({coords}) => {
+      const map = useMap()
+      map.setView(coords, map.getZoom());
+
+      return null;
     }
 
  
@@ -53,8 +63,8 @@ const MapComponent = () => {
 
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={position} zoom={11} zoomControl={false}>
-      <Dashboard position={position}  station={stationInfo} />
+    <MapContainer center={coords} zoom={11} zoomControl={false}>
+      <Dashboard />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -98,6 +108,7 @@ const MapComponent = () => {
        {
          checkBikeAdress ?   <RoutingMachine checkBikeAdress={checkBikeAdress} userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
        }
+       <SetViewOnClick coords={coords} />
         </MapContainer>
   
   )

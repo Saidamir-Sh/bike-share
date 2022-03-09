@@ -13,6 +13,7 @@ export const initialState = {
     getStations: false,
     isLightMode: true,
     position: {},
+    userPosition: {}
 }
 
 const persistConfig = {
