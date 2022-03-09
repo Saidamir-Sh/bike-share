@@ -1,5 +1,5 @@
 import { initialState } from "../store";
-import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS, FETCH_WEATHER, TOGGLE_MODE, GET_USER_DATA } from "../action";
+import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS, TOGGLE_MODE, GET_USER_DATA, CHANGE_POSITION } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -31,6 +31,12 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 position: action.payload
+            }
+        case CHANGE_POSITION: 
+            return {
+                ...state,
+                position: action.payload,
+                countryCode: action.payload.country,
             }
         default: {
             return {

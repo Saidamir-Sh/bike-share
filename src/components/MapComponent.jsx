@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import Loader from './Loader';
 import Dashboard from './Dashboard';
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip, useMap } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations, setUserLatLng } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +12,6 @@ import RoutingMachine from './RoutingMachine';
 const MapComponent = () => {
 
     const dispatch = useDispatch()
-
     // const [latitude, setLatitude] = useState(0)
     // const [longitude, setLongitude] = useState(0)
     const [bikeLat, setBikeLat] = useState(null)
@@ -29,8 +28,9 @@ const MapComponent = () => {
     const latitude = useSelector((state) => state.position?.latitude)
     const longitude = useSelector((state) => state.position?.longitude)
     const checkCords = useSelector((state) => state.position?.checkCords)
+    const position = [latitude, longitude]
     
-    const bikes = bikeNetworks.filter((network) => network.location.country == countryCode)
+    const bikes = bikeNetworks.filter((network) => network.location?.country == countryCode)
   
     const setBikeAdress = (station) => {
       setBikeLat(station.latitude)
@@ -41,27 +41,20 @@ const MapComponent = () => {
       setCheckBikeAdress(true)
     }
 
-
-    // useEffect(() => {
-    //   if(navigator.geolocation) {
-    //       navigator.geolocation.watchPosition((position) => {
-    //           setLatitude(position.coords.latitude)
-    //           setLongitude(position.coords.longitude)
-    //           setCheckCords(true)
-    //       })
-    //   }
-    // }, [])
+ 
 
     useEffect(async () => {
        await dispatch(fetchUserData())
        await dispatch(fetchNetworks())
        dispatch(setUserLatLng())
+       
     }, [])
+
 
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
-      <Dashboard latitude={latitude} longitude={longitude}  station={stationInfo} />
+    <MapContainer center={position} zoom={11} zoomControl={false}>
+      <Dashboard position={position}  station={stationInfo} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -70,7 +63,7 @@ const MapComponent = () => {
       <Marker icon={person} position={[latitude, longitude]}></Marker>
 
       { 
-        bikes.map((bike) => (
+        bikes?.map((bike) => (
           <Marker
           key={bike.id}
           icon={ bikeNetwork }

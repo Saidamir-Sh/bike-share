@@ -3,6 +3,7 @@ export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 export const FETCH_STATIONS = 'FETCH_STATIONS'
 export const TOGGLE_MODE = 'TOGGLE_MODE'
 export const GET_USER_DATA = 'GET_USER_DATA'
+export const CHANGE_POSITION = 'CHANGE_POSITION'
 
 export const fetchUserData = () => {
     return async (dispatch) => {
@@ -85,3 +86,17 @@ export const setUserLatLng = () => {
     }
 } 
 
+export const searchHandler = (network) => {
+    return (dispatch) => {
+        let data = {
+            latitude: network.location.latitude,
+            longitude: network.location.longitude,
+            checkCords: true,
+            country: network.location.country,
+        }
+        dispatch({
+            type: CHANGE_POSITION,
+            payload: data,
+        })
+    }
+}

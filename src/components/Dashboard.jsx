@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleMode } from '../redux/action'
+import { searchHandler, toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
 import { Form, Card } from 'react-bootstrap'
+import { useMap } from 'react-leaflet';
  
-const Dashboard = ({latitude, longitude, station}) => {
+const Dashboard = ({position, station}) => {
 
   const dispatch = useDispatch()
+  const map = useMap()
 
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -20,6 +22,8 @@ const Dashboard = ({latitude, longitude, station}) => {
 
   const [isActive, setIsActive] = useState(false)
   
+
+
   const handleSideBar = () => {
     setIsActive(!isActive)
   }
@@ -44,7 +48,7 @@ const Dashboard = ({latitude, longitude, station}) => {
                 if(network.location.city.toLowerCase().includes(searchQuery.toLowerCase())) return true
               }).map((network) => (
                 <Card key={network.id} className='search-result px-0 py-0 my-0' >
-                  <Card.Body  className='px-2 py-2'>{network.location.city}, {network.location.country}</Card.Body>
+                  <Card.Body onClick={() => dispatch(searchHandler(network))}  className='px-2 py-2'>{network.location.city}, {network.location.country}</Card.Body>
                 </Card>
               ))
             }
