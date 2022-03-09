@@ -12,14 +12,11 @@ import RoutingMachine from './RoutingMachine';
 const MapComponent = () => {
 
     const dispatch = useDispatch()
-    // const map = useMap()
-    // const [latitude, setLatitude] = useState(0)
-    // const [longitude, setLongitude] = useState(0)
+    
     const [bikeLat, setBikeLat] = useState(null)
     const [bikeLong, setBikeLong] = useState(null)
     const [checkBikeAdress, setCheckBikeAdress] = useState(false)
-    // const [checkCords, setCheckCords] = useState(false)
-    const [stationInfo, setStationInfo] = useState({})
+    const [station, setStationInfo] = useState({})
 
     const countryCode = useSelector((state) => state.countryCode)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
@@ -30,9 +27,10 @@ const MapComponent = () => {
     const longitude = useSelector((state) => state.position?.longitude)
     const userLat = useSelector((state) => state.userPosition.latitude)
     const userLng = useSelector((state) => state.userPosition.longitude)
-    const userPosition = [userLat, userLng]
-    console.log(userPosition)
     const checkCords = useSelector((state) => state.position?.checkCords)
+
+    // positions for map view and marker
+    const userPosition = [userLat, userLng]
     const coords = [latitude, longitude]
     
     const bikes = bikeNetworks.filter((network) => network.location?.country == countryCode)
@@ -72,7 +70,7 @@ const MapComponent = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         className={!isLightMode ? 'default-map' : 'map-tiles'}
       />
-      <Marker icon={person} position={[latitude, longitude]}></Marker>
+      <Marker icon={person} position={userPosition}></Marker>
 
       { 
         bikes?.map((bike) => (
