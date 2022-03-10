@@ -7,8 +7,8 @@
     background: #FFFFFF;
     transform: translateX(-100%);
     transition: all .6s ease-in-out;
-    box-shadow:  20px 20px 30px #bebebe,
-             -20px -20px 30px #ffffff;
+    box-shadow:  10px 20px 30px #bebebe,
+             -10px -20px 30px #ffffff;
 }
 .inactive {
     transform: translateX(0%);

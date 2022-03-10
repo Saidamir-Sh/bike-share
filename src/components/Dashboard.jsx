@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../styles/Dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchHandler, toggleMode } from '../redux/action'
+import { searchHandler, setUserLatLng, toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';

@@ -106,7 +106,7 @@ const MapComponent = () => {
       } 
       <ZoomControl position="topright" />
        {
-         checkBikeAdress ?   <RoutingMachine checkBikeAdress={checkBikeAdress} userLat={latitude} userLong={longitude} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
+         checkBikeAdress ?   <RoutingMachine checkBikeAdress={checkBikeAdress} userLat={userLat} userLong={userLng} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
        }
        <SetViewOnClick coords={coords} />
         </MapContainer>
