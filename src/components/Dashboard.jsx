@@ -5,11 +5,13 @@ import { searchHandler, setUserLatLng, toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
-import { Form, Card } from 'react-bootstrap'
+import { Form, Card, Button } from 'react-bootstrap'
+import { useMap } from 'react-leaflet';
  
 const Dashboard = () => {
 
   const dispatch = useDispatch()
+  const map = useMap()
 
   const [searchQuery, setSearchQuery] = useState('')
   const [showResults, setShowResults] = useState(false)
@@ -17,6 +19,9 @@ const Dashboard = () => {
 
   const isLightMode = useSelector((state) => state.isLightMode)
   const networks = useSelector((state) => state.bikeNetworks.networks)
+  const userLat = useSelector((state) => state.userPosition.latitude)
+  const userLng = useSelector((state) => state.userPosition.longitude)
+  const userPosition = [userLat, userLng]
   
 
   // collapse side bar
@@ -45,7 +50,9 @@ const Dashboard = () => {
 
   return (
         <div className={isActive ? 'dashboard ' : 'dashboard inactive dashboard-dark'}>
+
            <Switch  onChange={() => {dispatch(toggleMode())}}/>
+
            <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className='d-flex align-items-center position-relative flex-column' controlId="formBasicText">
               <Form.Control 
@@ -55,7 +62,7 @@ const Dashboard = () => {
               type="text" 
               placeholder="Search for other cities..." />
               <i class="bi bi-search"></i>
-              <Card className={showResults ? 'search-result-container mx-auto d-none' : 'search-result-container mx-auto'}>
+              <Card className={showResults ? 'search-result-container mx-auto ' : 'search-result-container mx-auto d-none'}>
             {
               networks.filter((network) => {
                 if(!searchQuery) return false
@@ -68,6 +75,8 @@ const Dashboard = () => {
             }
             </Card>
             </Form.Group>
+
+            <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
           </Form>
       
           <div onClick={handleSideBar} className='dashboard-arrow-dark dashboard-arrow d-flex align-items-center justify-content-center'>

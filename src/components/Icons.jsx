@@ -12,7 +12,7 @@ const bikeNetwork = new L.Icon({
 
 const person = new L.Icon({
     iconUrl: personPointer,
-    iconSize: [40, 40],
+    iconSize: [30, 40],
     popupAnchor:  [-3, -76]
 })
 

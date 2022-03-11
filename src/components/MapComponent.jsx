@@ -46,12 +46,18 @@ const MapComponent = () => {
 
     const SetViewOnClick = ({coords}) => {
       const map = useMap()
-      map.setView(coords, map.getZoom());
+      map.flyTo(coords);
 
       return null;
     }
 
- 
+    useEffect(() => {
+      let el = document.getElementsByClassName('leaflet-routing-container')[0]
+      if (el) {
+        let dashboard = document.getElementsByClassName('dashboard inactive')[0]
+        dashboard.appendChild(el)
+      }
+    }, [checkBikeAdress])
 
     useEffect(async () => {
        await dispatch(fetchUserData())
@@ -63,14 +69,14 @@ const MapComponent = () => {
 
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={coords} zoom={11} zoomControl={false}>
+    <MapContainer center={userPosition} zoom={11} zoomControl={false}>
       <Dashboard />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         className={!isLightMode ? 'default-map' : 'map-tiles'}
       />
-      <Marker icon={person} position={userPosition}></Marker>
+      <Marker  position={userPosition}></Marker>
 
       { 
         bikes?.map((bike) => (

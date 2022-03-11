@@ -27,6 +27,7 @@
 }
 .search-input {
     width: 90%;
+    border-radius: 10px;
 }
 .bi-search {
     position: absolute;
@@ -45,4 +46,20 @@
 }
 .search-result-container {
     width: 90%;
+}
+.location-btn {
+    width: 90%;
+    position: absolute;
+    z-index: 9999;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+/* Leaflet routing control */
+.leaflet-routing-container {
+    margin-right: 1rem !important; 
+    width: 90% !important;
+    margin: 0 auto !important;
+    border: 1px solid red !important;
 }
