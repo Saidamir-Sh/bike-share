@@ -61,10 +61,10 @@ const MapComponent = () => {
        dispatch(setUserLatLng())
        
     }, [])
-
+    // checkCords ? userPosition : 
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={checkCords ? userPosition : coords} zoom={11} zoomControl={false}>
+    <MapContainer center={coords} zoom={11} zoomControl={false}>
       <Dashboard coords={coords}/>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
