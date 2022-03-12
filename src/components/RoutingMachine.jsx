@@ -28,22 +28,6 @@ const CreateRoutineMachineLayer = ({ checkBikeAdress, userLat, userLong, bikeLat
     showAlternatives: false,
   })
 
-  //  const map = useMap()
-  // let routeBlock = instance.onAdd(map)
-  // document.querySelector('.dashboard').appendChild(routeBlock)
-  // let routeBlock = L.DomUtil.create('div', 'dashboard-route leaflet-routing-container leaflet-bar leaflet-control');
-  // instance.addTo(map)
-  // document.querySelector('.dashboard').appendChild(routeBlock)
-  // routeBlock.appendChild(instance.getContainer())
-
-  // let dashboard = document.querySelector('.dashboard')
-  // let routeBlock = L.DomUtil.create('div', 'dashboard-route leaflet-routing-container leaflet-bar leaflet-control')
-  // dashboard.appendChild(routeBlock)
-  // let clearRouteBlock = L.DomUtil.empty(routeBlock)
-  // let clearDashboard = L.DomUtil.empty(dashboard)
-  // instance.addTo(map)
-  // routeBlock.appendChild(instance.getContainer())
-
 
   return instance;
 };
