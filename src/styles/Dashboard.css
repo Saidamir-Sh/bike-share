@@ -46,6 +46,7 @@
 }
 .search-result-container {
     width: 90%;
+    z-index: 9999;
 }
 .location-btn {
     width: 90%;
@@ -61,7 +62,7 @@
     position: absolute !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    top: 20% !important;
+    top: 15% !important;
     width: 90% !important;
 
 } 
@@ -71,4 +72,30 @@
 }
 .leaflet-routing-instruction-text {
     padding: 1em !important ;
+}
+/* Dashboard Intro  */
+.dashboard-intro {
+   width: 90%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   position: absolute;
+   top: 50%;
+   right: 50%;
+   transform: translate(50%, -50%);
+}
+.intro-text {
+    width: 90%;
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 10%;
+}
+.intro-text h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+.intro-text p {
+    text-align: center;
+    font-size: 1rem;
 }

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../styles/Dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchHandler, setUserLatLng, toggleMode } from '../redux/action'
+import { searchHandler, toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
 import { Form, Card, Button } from 'react-bootstrap'
 import { useMap } from 'react-leaflet';
+import dashboardImage from '../assets/dashboardimg.png'
  
 const Dashboard = ({ coords }) => {
 
@@ -67,7 +68,11 @@ const Dashboard = ({ coords }) => {
               type="text" 
               placeholder="Search for other cities..." />
               <i class="bi bi-search"></i>
-              <Card className={showResults ? 'search-result-container mx-auto ' : 'search-result-container mx-auto d-none'}>
+            </Form.Group>
+            <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
+          </Form>
+
+          <Card className={showResults ? 'search-result-container mx-auto ' : 'search-result-container mx-auto d-none'}>
             {
               networks.filter((network) => {
                 if(!searchQuery) return false
@@ -79,9 +84,15 @@ const Dashboard = ({ coords }) => {
               ))
             }
             </Card>
-            </Form.Group>
-            <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
-          </Form>
+
+            <div className='dashboard-intro'>
+              <img src={dashboardImage} width='50%' alt='Logo for Dashboard' />
+            </div>
+            <div className='intro-text'>
+                <h1>ByBike</h1>
+                <p>Short rides to your work or appointments, or explore the city. It's easy with Bike Share</p>
+            </div>
+
             <SetViewOnClick coords={coords} />
           <div onClick={handleSideBar} className='dashboard-arrow-dark dashboard-arrow d-flex align-items-center justify-content-center'>
             {isActive ? <ArrowRightIcon /> : <ArrowLeftIcon/>}
