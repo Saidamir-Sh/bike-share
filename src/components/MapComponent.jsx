@@ -8,6 +8,7 @@ import { fetchUserData, fetchNetworks, fetchBikeStations, setUserLatLng } from '
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person, stationIcon } from './Icons';
 import RoutingMachine from './RoutingMachine';
+import { Alert } from '@mui/material';
  
 const MapComponent = () => {
 
@@ -20,7 +21,7 @@ const MapComponent = () => {
 
     const countryCode = useSelector((state) => state.countryCode)
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
-    const isLightMode = useSelector((state) => state.isLightMode)
+    // const isLightMode = useSelector((state) => state.isLightMode)
     const getStations = useSelector((state) => state.getStations)
     const stations = useSelector((state) => state.bikeStations.network?.stations)
     const latitude = useSelector((state) => state.position?.latitude)
@@ -32,10 +33,11 @@ const MapComponent = () => {
     // positions for map view and marker
     const userPosition = [userLat, userLng]
     const coords = [latitude, longitude]
-    console.log(userPosition)
     
-    const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode)
-  
+    const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode) 
+    
+    // console.log(bikes.keys(bikes).length === 0)
+
     const setBikeAdress = (station) => {
       setBikeLat(station.latitude)
       setBikeLong(station.longitude)
@@ -48,7 +50,7 @@ const MapComponent = () => {
     useEffect(() => {
       let el = document.getElementsByClassName('leaflet-routing-container')[0]
       if (el) {
-        let dashboard = document.getElementsByClassName('dashboard inactive')[0]
+        let dashboard = document.getElementById('dashboard')
         dashboard.appendChild(el)
       }
     }, [checkBikeAdress])
@@ -67,11 +69,10 @@ const MapComponent = () => {
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        className={!isLightMode ? 'default-map' : 'map-tiles'}
+        // className={!isLightMode ? 'default-map' : 'map-tiles'}
       />
       <Marker  position={userPosition}></Marker>
-
-      { 
+    {
         bikes?.map((bike) => (
           <Marker
           key={bike.id}

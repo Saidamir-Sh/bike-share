@@ -21,11 +21,13 @@ const Dashboard = ({ coords }) => {
   const networks = useSelector((state) => state.bikeNetworks.networks)
   const userLat = useSelector((state) => state.userPosition.latitude)
   const userLng = useSelector((state) => state.userPosition.longitude)
+  // const isLightMode = useSelector((state) => state.isLightMode)
   const userPosition = [userLat, userLng]
   
 
   // collapse side bar
-  const handleSideBar = () => {
+  const handleSideBar = (e) => {
+    e.preventDefault()
     setIsActive(!isActive)
   }
 
@@ -55,16 +57,16 @@ const Dashboard = ({ coords }) => {
 
 
   return (
-        <div className={isActive ? 'dashboard ' : 'dashboard inactive dashboard-dark'}>
+        <div id='dashboard' className={isActive ? 'dashboard' : 'dashboard inactive'}>
 
-           <Switch  onChange={() => {dispatch(toggleMode())}}/>
-
+           {/* <Switch checked={isLightMode} onChange={() => {dispatch(toggleMode())}}/> */}
+           <p className='text-center pt-2'>Made with <i class="bi bi-suit-heart" style={{color: 'red'}}></i> in Poland</p>
            <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className='d-flex align-items-center position-relative flex-column' controlId="formBasicText">
               <Form.Control 
               onChange={(e) => handleInputChange(e)}
               value={searchQuery}
-              className='search-input mx-auto mt-3 shadow-none' 
+              className='search-input mx-auto mt-2 shadow-none' 
               type="text" 
               placeholder="Search for other cities..." />
               <i class="bi bi-search"></i>
@@ -95,7 +97,7 @@ const Dashboard = ({ coords }) => {
             </div>
 
             <SetViewOnClick coords={coords} />
-          <div onClick={handleSideBar} className='dashboard-arrow-dark dashboard-arrow d-flex align-items-center justify-content-center'>
+          <div onClick={(e) => handleSideBar(e)} className=' dashboard-arrow d-flex align-items-center justify-content-center'>
             {isActive ? <ArrowRightIcon /> : <ArrowLeftIcon/>}
           </div>
         </div>

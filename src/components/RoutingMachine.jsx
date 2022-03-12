@@ -20,7 +20,7 @@ const CreateRoutineMachineLayer = ({ checkBikeAdress, userLat, userLong, bikeLat
       urlParameters: {
           vehicle: 'foot'
       }}),
-    show: true, //false 
+    show: false, 
     addWaypoints: false,
     routeWhileDragging: true,
     draggableWaypoints: true,

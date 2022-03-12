@@ -4,7 +4,7 @@
     cursor: auto;
     z-index: 999;
     position: absolute;
-    background: #FFFFFF;
+    background: #ffffff;
     transform: translateX(-100%);
     transition: all .6s ease-in-out;
     box-shadow:  10px 20px 30px #bebebe,
@@ -23,16 +23,18 @@
     right: -1.5em;
     top: 50%;
     transform: translateY(-50%);
-    border-radius: 20%;
+    border-radius: 20%; 
+    touch-action: unset;
 }
 .search-input {
     width: 90%;
     border-radius: 10px;
+    z-index: 9999;
 }
 .bi-search {
     position: absolute;
     right: 10%;
-    top: 40%;
+    top: 30%;
     color: grey;
     font-size: 1.2rem;
 }
@@ -115,5 +117,26 @@
     }
     100% {
       box-shadow: 0 0 0 30px rgba(0, 195, 255, 0);
+    }
+}
+
+/* Media Quuery */
+/*Small devices (landscape phones, 576px and up)*/
+@media (max-width: 576px) { 
+    .dashboard , .inactive {
+        width: 90%;
+        z-index: 9999;
+    }
+    .intro-text {
+        z-index: 9999;
+    }
+ }
+@media (min-width: 768px) and (max-width: 810px) {
+    .dashboard, .inactive {
+        width: 50%;
+        z-index: 9999;
+    }
+    .intro-text {
+        z-index: 9999;
     }
 }
