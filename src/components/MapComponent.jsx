@@ -32,7 +32,7 @@ const MapComponent = () => {
 
     // positions for map view and marker
     const userPosition = [userLat, userLng]
-    const coords = [latitude, longitude]
+    const coords = [parseFloat(latitude), parseFloat(longitude)]
     
     const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode) 
     
