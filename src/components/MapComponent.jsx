@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/MapComponent.css';
 import Loader from './Loader';
 import Dashboard from './Dashboard';
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip } from 'react-leaflet';
 import { useEffect } from 'react';
 import { fetchUserData, fetchNetworks, fetchBikeStations, setUserLatLng } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,15 +25,16 @@ const MapComponent = () => {
     const stations = useSelector((state) => state.bikeStations.network?.stations)
     const latitude = useSelector((state) => state.position?.latitude)
     const longitude = useSelector((state) => state.position?.longitude)
-    const userLat = useSelector((state) => state.userPosition.latitude)
-    const userLng = useSelector((state) => state.userPosition.longitude)
-    const checkCords = useSelector((state) => state.position?.checkCords)
+    const userLat = useSelector((state) => state.userPosition?.latitude)
+    const userLng = useSelector((state) => state.userPosition?.longitude)
+    const checkCords = useSelector((state) => state.userPosition?.checkCords)
 
     // positions for map view and marker
     const userPosition = [userLat, userLng]
     const coords = [latitude, longitude]
+    console.log(userPosition)
     
-    const bikes = bikeNetworks.filter((network) => network.location?.country == countryCode)
+    const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode)
   
     const setBikeAdress = (station) => {
       setBikeLat(station.latitude)
@@ -42,13 +43,6 @@ const MapComponent = () => {
 
       setCheckBikeAdress(false)
       setCheckBikeAdress(true)
-    }
-
-    const SetViewOnClick = ({coords}) => {
-      const map = useMap()
-      map.flyTo(coords);
-
-      return null;
     }
 
     useEffect(() => {
@@ -66,11 +60,10 @@ const MapComponent = () => {
        
     }, [])
 
-
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={userPosition} zoom={11} zoomControl={false}>
-      <Dashboard />
+    <MapContainer center={checkCords ? userPosition : coords} zoom={11} zoomControl={false}>
+      <Dashboard coords={coords}/>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -114,7 +107,7 @@ const MapComponent = () => {
        {
          checkBikeAdress ?   <RoutingMachine checkBikeAdress={checkBikeAdress} userLat={userLat} userLong={userLng} bikeLat={bikeLat} bikeLong={bikeLong}/> : null
        }
-       <SetViewOnClick coords={coords} />
+       {/* <SetViewOnClick coords={coords} /> */}
         </MapContainer>
   
   )

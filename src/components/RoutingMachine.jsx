@@ -1,12 +1,8 @@
-import React from "react";
-import L, { control, Map, map, routing } from "leaflet";
+import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 import 'lrm-graphhopper'
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
-import { useEffect } from "react";
-import { useMap } from "react-leaflet";
-
 
 const CreateRoutineMachineLayer = ({ checkBikeAdress, userLat, userLong, bikeLat, bikeLong }) => {
     const instance = L.Routing.control({

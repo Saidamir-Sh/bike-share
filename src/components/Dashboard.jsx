@@ -8,7 +8,7 @@ import { Switch } from '@mui/material';
 import { Form, Card, Button } from 'react-bootstrap'
 import { useMap } from 'react-leaflet';
  
-const Dashboard = () => {
+const Dashboard = ({ coords }) => {
 
   const dispatch = useDispatch()
   const map = useMap()
@@ -17,7 +17,6 @@ const Dashboard = () => {
   const [showResults, setShowResults] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
-  const isLightMode = useSelector((state) => state.isLightMode)
   const networks = useSelector((state) => state.bikeNetworks.networks)
   const userLat = useSelector((state) => state.userPosition.latitude)
   const userLng = useSelector((state) => state.userPosition.longitude)
@@ -45,6 +44,12 @@ const Dashboard = () => {
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value)
     setShowResults(!showResults)
+  }
+
+  // set view to result on map 
+  const SetViewOnClick = ({coords}) => {
+    map.flyTo(coords);
+    return null;
   }
 
 
@@ -75,10 +80,9 @@ const Dashboard = () => {
             }
             </Card>
             </Form.Group>
-
             <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
           </Form>
-      
+            <SetViewOnClick coords={coords} />
           <div onClick={handleSideBar} className='dashboard-arrow-dark dashboard-arrow d-flex align-items-center justify-content-center'>
             {isActive ? <ArrowRightIcon /> : <ArrowLeftIcon/>}
           </div>
