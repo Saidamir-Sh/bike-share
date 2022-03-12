@@ -87,10 +87,11 @@ const Dashboard = ({ coords }) => {
 
             <div className='dashboard-intro'>
               <img src={dashboardImage} width='50%' alt='Logo for Dashboard' />
+              <div className='pulse-img circle-img'></div>
             </div>
             <div className='intro-text'>
                 <h1>ByBike</h1>
-                <p>Short rides to your work or appointments, or explore the city. It's easy with Bike Share</p>
+                <p>Short rides to your work or appointments, or explore the city. It's easy with ByBike</p>
             </div>
 
             <SetViewOnClick coords={coords} />
