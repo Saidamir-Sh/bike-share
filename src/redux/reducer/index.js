@@ -8,11 +8,13 @@ export const rootReducer = (state = initialState, action) => {
                 ...state,
                 countryCode: action.payload,
                 isLoading: false,
+                checkCords: true,
             }
         case FETCH_NETWORKS: 
             return {
                 ...state,
                 isLoading: false,
+                checkCords: true,
                 bikeNetworks: action.payload,
             }
         case FETCH_STATIONS:
@@ -21,6 +23,7 @@ export const rootReducer = (state = initialState, action) => {
                 isLoading: false,
                 bikeStations: action.payload,
                 getStations: true,
+                checkCords: true,
             }
         case TOGGLE_MODE: 
             return {
@@ -30,7 +33,8 @@ export const rootReducer = (state = initialState, action) => {
         case GET_USER_DATA: 
             return {
                 ...state,
-                userPosition: action.payload
+                userPosition: action.payload,
+                checkCords: true,
             }
         case CHANGE_POSITION: 
             return {
