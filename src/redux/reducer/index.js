@@ -36,6 +36,7 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 position: action.payload,
+                checkCords: action.payload.checkCords,
                 countryCode: action.payload.country,
             }
         default: {

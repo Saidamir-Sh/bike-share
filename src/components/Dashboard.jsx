@@ -23,6 +23,7 @@ const Dashboard = ({ coords }) => {
   const userLng = useSelector((state) => state.userPosition.longitude)
   // const isLightMode = useSelector((state) => state.isLightMode)
   const userPosition = [userLat, userLng]
+  console.log(coords)
   
 
   // collapse side bar
@@ -76,7 +77,7 @@ const Dashboard = ({ coords }) => {
 
           <Card className={showResults ? 'search-result-container mx-auto ' : 'search-result-container mx-auto d-none'}>
             {
-              networks.filter((network) => {
+              networks?.filter((network) => {
                 if(!searchQuery) return false
                 if(network.location.city.toLowerCase().includes(searchQuery.toLowerCase())) return true
               }).map((network) => (

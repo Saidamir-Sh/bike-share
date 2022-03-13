@@ -13,6 +13,7 @@ export const initialState = {
     getStations: false,
     isLightMode: true,
     position: {},
+    checkCords: false,
     userPosition: {}
 }
 

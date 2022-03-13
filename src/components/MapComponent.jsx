@@ -28,10 +28,10 @@ const MapComponent = () => {
     const longitude = useSelector((state) => state.position?.longitude)
     const userLat = useSelector((state) => state.userPosition?.latitude)
     const userLng = useSelector((state) => state.userPosition?.longitude)
-    const checkCords = useSelector((state) => state.userPosition?.checkCords)
-
+    const checkCords = useSelector((state) => state.checkCords)
+  console.log(checkCords)
     // positions for map view and marker
-    const userPosition = [userLat, userLng]
+    const userPosition = [parseFloat(userLat), parseFloat(userLng)]
     const coords = [parseFloat(latitude), parseFloat(longitude)]
     
     const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode) 
@@ -56,9 +56,9 @@ const MapComponent = () => {
     }, [checkBikeAdress])
 
     useEffect(async () => {
+       await dispatch(setUserLatLng())
        await dispatch(fetchUserData())
        await dispatch(fetchNetworks())
-       dispatch(setUserLatLng())
        
     }, [])
     // checkCords ? userPosition : 
