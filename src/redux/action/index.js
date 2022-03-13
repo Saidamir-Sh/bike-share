@@ -25,7 +25,9 @@ export const fetchUserData = () => {
 export const fetchNetworks = () => {
     return async (dispatch) => {
         try {
-            let response = await fetch('http://api.citybik.es/v2/networks')
+            let response = await fetch(`http://api.citybik.es/v2/networks`, {mode: 'cors'}, {headers: {
+                "Access-Control-Allow-Origin": "*"
+              }})
             if(response.ok) {
                 let data = await response.json()
                 dispatch({
