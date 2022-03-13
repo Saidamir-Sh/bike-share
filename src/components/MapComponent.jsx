@@ -63,7 +63,7 @@ const MapComponent = () => {
     }, [])
     // checkCords ? userPosition : 
   return (
-      checkCords ? <Loader /> :
+      !checkCords ? <Loader /> :
     <MapContainer center={coords} zoom={11} zoomControl={false}>
       <Dashboard coords={coords}/>
       <TileLayer
