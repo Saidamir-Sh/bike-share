@@ -4,11 +4,11 @@ import Loader from './Loader';
 import Dashboard from './Dashboard';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl, Tooltip } from 'react-leaflet';
 import { useEffect } from 'react';
-import { fetchUserData, fetchNetworks, fetchBikeStations, setUserLatLng } from '../redux/action/';
+import { fetchCountryCode, fetchNetworks, fetchBikeStations, setUserLatLng } from '../redux/action/';
 import { useDispatch, useSelector } from 'react-redux'
 import { bikeNetwork, person, stationIcon } from './Icons';
 import RoutingMachine from './RoutingMachine';
-import { Alert } from '@mui/material';
+
  
 const MapComponent = () => {
 
@@ -33,7 +33,7 @@ const MapComponent = () => {
     // positions for map view and marker
     const userPosition = [userLat, userLng]
     const coords = [latitude, longitude]
-    console.log(coords)
+    console.log(checkCords)
     
     const bikes = bikeNetworks.filter((network) => network.location?.country === countryCode) 
     
@@ -57,14 +57,14 @@ const MapComponent = () => {
     }, [checkBikeAdress])
 
     useEffect(async () => {
-       await dispatch(fetchUserData())
+       await dispatch(fetchCountryCode())
        await dispatch(fetchNetworks())
        await dispatch(setUserLatLng())
     }, [])
     // checkCords ? userPosition : 
   return (
       !checkCords ? <Loader /> :
-    <MapContainer center={coords} zoom={11} zoomControl={false}>
+    <MapContainer center={[latitude, longitude]} zoom={11} zoomControl={false}>
       <Dashboard coords={coords}/>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

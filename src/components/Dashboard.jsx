@@ -61,7 +61,7 @@ const Dashboard = ({ coords }) => {
         <div id='dashboard' className={isActive ? 'dashboard' : 'dashboard inactive'}>
 
            {/* <Switch checked={isLightMode} onChange={() => {dispatch(toggleMode())}}/> */}
-           <p className='text-center pt-2'>Made with <i class="bi bi-suit-heart" style={{color: 'red'}}></i> in Poland</p>
+           <p className='text-center pt-2'>Made with <i className="bi bi-suit-heart" style={{color: 'red'}}></i> in Poland</p>
            <Form onSubmit={(e) => handleSubmit(e)}>
             <Form.Group className='d-flex align-items-center position-relative flex-column' controlId="formBasicText">
               <Form.Control 
@@ -70,7 +70,7 @@ const Dashboard = ({ coords }) => {
               className='search-input mx-auto mt-2 shadow-none' 
               type="text" 
               placeholder="Search for other cities..." />
-              <i class="bi bi-search"></i>
+              <i className="bi bi-search"></i>
             </Form.Group>
             <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
           </Form>

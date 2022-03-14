@@ -1,14 +1,13 @@
 import { initialState } from "../store";
-import { FETCH_USER_DATA,  FETCH_NETWORKS, FETCH_STATIONS, TOGGLE_MODE, GET_USER_DATA, CHANGE_POSITION } from "../action";
+import { FETCH_COUNTRY_CODE,  FETCH_NETWORKS, FETCH_STATIONS, TOGGLE_MODE, GET_USER_DATA, CHANGE_POSITION } from "../action";
 
 export const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_USER_DATA:
+        case FETCH_COUNTRY_CODE:
             return {
                 ...state,
                 countryCode: action.payload,
                 isLoading: false,
-                checkCords: true,
             }
         case FETCH_NETWORKS: 
             return {

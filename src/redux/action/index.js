@@ -1,18 +1,18 @@
-export const FETCH_USER_DATA = 'FETCH_USER_DATA'
+export const FETCH_COUNTRY_CODE = 'FETCH_COUNTRY_CODE'
 export const FETCH_NETWORKS = 'FETCH_NETWORKS'
 export const FETCH_STATIONS = 'FETCH_STATIONS'
 export const TOGGLE_MODE = 'TOGGLE_MODE'
 export const GET_USER_DATA = 'GET_USER_DATA'
 export const CHANGE_POSITION = 'CHANGE_POSITION'
 
-export const fetchUserData = () => {
+export const fetchCountryCode = () => {
     return async (dispatch) => {
         try {
             let response = await fetch(`https://ip.nf/me.json`)
             if(response.ok) {
                 let data = await response.json()
                 dispatch({
-                    type: FETCH_USER_DATA,
+                    type: FETCH_COUNTRY_CODE,
                     payload: data.ip.country_code
                 })
             }
@@ -25,9 +25,13 @@ export const fetchUserData = () => {
 export const fetchNetworks = () => {
     return async (dispatch) => {
         try {
-            let response = await fetch(`http://api.citybik.es/v2/networks`, {mode: 'cors'}, {headers: {
-                "Access-Control-Allow-Origin": "*"
-              }})
+            let response = await fetch(`http://api.citybik.es/v2/networks`, {mode: 'cors'}, 
+            {headers : {
+                "x-rapidapi-host": "community-citybikes.p.rapidapi.com",
+                "x-rapidapi-key": "6c32858c11mshafd50d3dee6dc14p1ac0b8jsnf6f06fe1b868"
+            }}
+            )
+              console.log(response)
             if(response.ok) {
                 let data = await response.json()
                 dispatch({
