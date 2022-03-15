@@ -14,20 +14,22 @@ const MapComponent = () => {
 
     const dispatch = useDispatch()
     
-    const [bikeLat, setBikeLat] = useState(null)
-    const [bikeLong, setBikeLong] = useState(null)
-    const [checkBikeAdress, setCheckBikeAdress] = useState(false)
-    const [station, setStationInfo] = useState({})
+    //==>> states for RoutingComponents(prop drilling)                                                                   
+    const [bikeLat, setBikeLat] = useState(null)                      
+    const [bikeLong, setBikeLong] = useState(null)                  
+    const [checkBikeAdress, setCheckBikeAdress] = useState(false)     
+    const [station, setStationInfo] = useState({})                  
 
+    //==>> user data
     const countryCode = useSelector((state) => state.countryCode)
+    const userLat = useSelector((state) => state.userPosition?.latitude)
+    const userLng = useSelector((state) => state.userPosition?.longitude)
+
     const bikeNetworks = useSelector((state) => state.bikeNetworks.networks) || []
-    // const isLightMode = useSelector((state) => state.isLightMode)
-    const getStations = useSelector((state) => state.getStations)
+    const checkStations = useSelector((state) => state.checkStations)
     const stations = useSelector((state) => state.bikeStations.network?.stations)
     const latitude = useSelector((state) => state.position?.latitude)
     const longitude = useSelector((state) => state.position?.longitude)
-    const userLat = useSelector((state) => state.userPosition?.latitude)
-    const userLng = useSelector((state) => state.userPosition?.longitude)
     const checkCords = useSelector((state) => state.checkCords)
 
     // positions for map view and marker
@@ -86,7 +88,7 @@ const MapComponent = () => {
           </Marker>
     ))
       }
-      {!getStations ? console.log('waiting...') :
+      {!checkStations ? console.log('waiting...') :
         stations.map((station) => (
           <Marker
           key={station.id}

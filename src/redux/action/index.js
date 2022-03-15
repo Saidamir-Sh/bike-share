@@ -48,7 +48,11 @@ export const fetchNetworks = () => {
 export const fetchBikeStations = (networkId) => {
     return async (dispatch) => {
         try {
-            let response = await fetch(`http://api.citybik.es${networkId}`)
+            let response = await fetch(`http://api.citybik.es${networkId}`, {mode: 'cors'}, 
+            {headers : {
+                "x-rapidapi-host": "community-citybikes.p.rapidapi.com",
+                "x-rapidapi-key": "6c32858c11mshafd50d3dee6dc14p1ac0b8jsnf6f06fe1b868"
+            }})
             if(response.ok) {
                 let data = await response.json()
                 console.log(data)
@@ -63,21 +67,10 @@ export const fetchBikeStations = (networkId) => {
     }
 }
 
-
-
-export const toggleMode = () => {
-    return {
-        type: TOGGLE_MODE,
-    }
-}
-
 export const setUserLatLng = () => {
     return (dispatch) => {
         if(navigator.geolocation) {
             navigator.geolocation.watchPosition((position) => {
-                // setLatitude(position.coords.latitude)
-                // setLongitude(position.coords.longitude)
-                // setCheckCords(true)
                 let data = {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,

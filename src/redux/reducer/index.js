@@ -7,33 +7,22 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 countryCode: action.payload,
-                isLoading: false,
             }
         case FETCH_NETWORKS: 
             return {
                 ...state,
-                isLoading: false,
-                checkCords: true,
                 bikeNetworks: action.payload,
             }
         case FETCH_STATIONS:
             return {
                 ...state,
-                isLoading: false,
                 bikeStations: action.payload,
-                getStations: true,
-                checkCords: true,
-            }
-        case TOGGLE_MODE: 
-            return {
-                ...state,
-                isLightMode: !state.isLightMode
+                checkStations: true,
             }
         case GET_USER_DATA: 
             return {
                 ...state,
                 userPosition: action.payload,
-                checkCords: true,
             }
         case CHANGE_POSITION: 
             return {

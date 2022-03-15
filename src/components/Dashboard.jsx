@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../styles/Dashboard.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchHandler, toggleMode } from '../redux/action'
+import { fetchCountryCode, fetchNetworks, searchHandler, toggleMode } from '../redux/action'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Switch } from '@mui/material';
@@ -72,7 +72,9 @@ const Dashboard = ({ coords }) => {
               placeholder="Search for other cities..." />
               <i className="bi bi-search"></i>
             </Form.Group>
-            <Button variant="primary" onClick={() => map.flyTo(userPosition)} className='location-btn py-2'>Current location</Button>
+            <Button variant="primary" 
+            onClick={() =>  map.flyTo(userPosition) }
+            className='location-btn py-2'>Current location</Button>
           </Form>
 
           <Card className={showResults ? 'search-result-container mx-auto ' : 'search-result-container mx-auto d-none'}>
